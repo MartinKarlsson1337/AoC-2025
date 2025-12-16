@@ -9,7 +9,7 @@ def is_node_unconnected(adj: np.ndarray, node: int) -> bool:
 def get_circuit_id(adj: np.ndarray, node: int) -> int:
     row = adj[node]
     ids = np.unique(row[row != -1])
-    return int(ids.max())   # take the most recent circuit ID
+    return int(ids.max())
 
 def get_nodes_in_circuit(adj: np.ndarray, cid: int) -> np.ndarray:
     diag = adj.diagonal()
