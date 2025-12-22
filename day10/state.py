@@ -1,23 +1,4 @@
-from SearchProblemsAI.search_problems import State
-from SearchProblemsAI.search_problems import SearchProblem
-
-class CounterState(State):
-    def __init__(self, counters: list[int]):
-        self.counters = counters
-        
-    def __hash__(self):
-        return hash(tuple(self.counters))
-
-    def __eq__(self, other: 'CounterState'):
-        return self.counters == other.counters
-
-def get_counter_transition(state: CounterState, button: tuple):
-    new_state = [i for i in state.counters]
-    
-    for i in button:
-        new_state[i] += 1
-            
-    return CounterState(new_state)
+from SearchProblemsAI.search_problems import State, SearchProblem
 
 class ButtonState(State):
     def __init__(self, indicator_lights: list[str]):
@@ -41,29 +22,6 @@ def get_button_transition(state: ButtonState, button: tuple):
             new_state[i] = '.'
             
     return ButtonState(new_state)
-
-
-class CounterProblem(SearchProblem):
-    def __init__(self, lights: list[str], buttons: list[tuple[int]], joltages: list[int]):
-        self.lights = lights
-        self.buttons = buttons
-        self.joltages = joltages
-        
-        self.goal_state = CounterState(self.joltages)
-        
-    def get_start_state(self):
-        return CounterState([0 for _ in self.joltages])
-    
-    def is_goal_state(self, state):
-        return state == self.goal_state
-    
-    def get_actions(self, state):
-        return self.buttons
-    
-    def get_transition(self, state, action):
-        cost = 1
-        new_state = get_counter_transition(state, action)
-        return (new_state, cost)     
 
 class ButtonProblem(SearchProblem):
     def __init__(self, lights: list[str], buttons: list[tuple[int]], joltages: list[int]):

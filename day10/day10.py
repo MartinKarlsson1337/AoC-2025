@@ -25,7 +25,7 @@ def get_joltages(line: str) -> list[int]:
     return joltages
 
 if __name__ == '__main__':
-    with open('test.txt') as f:
+    with open('day10/day10.txt') as f:
         input_puzzle = f.readlines()
     
     sum = 0
